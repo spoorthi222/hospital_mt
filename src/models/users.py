@@ -5,6 +5,9 @@ class Users(models.Model):
     name     = models.CharField(max_length=50, default="")
     desig    = models.CharField(max_length=100,default="")
     s_scale  = models.CharField(max_length=10, default="")
+    email_id = models.CharField(max_length=50, default="")
+    password = models.CharField(max_length=20, default="")
+    salt     = models.CharField(max_length=64, default="")
 
 
     def save(self,*args,**kwargs):
