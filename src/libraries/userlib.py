@@ -11,6 +11,7 @@ class UserLib():
     def password_hashing(self,password,salt=None):
         if not salt:
             salt = binascii.hexlify(os.urandom(SALT_LENGTH/2)).decode()
+
         hash_library = hashlib.new(HASH_METHOD)
         salted_client_hash = str(password + salt)
         hash_library.update(salted_client_hash)
@@ -42,8 +43,12 @@ class UserLib():
             password_hash , salt = self.password_hashing(self.user_info["password"])
             print password_hash , salt
 
-            password_hash_2, salt_2 = self.password_hashing(self.user_info["password"],salt)
-            print password_hash_2, salt_2
+            #password_hash_2, salt_2 = self.password_hashing(self.user_info["password"],salt)
+            #print password_hash_2, salt_2
+            self.user_info["password"]= password_hash
+            self.user_info["salt"]= salt
+
+            Users.objects.create(**self.user_info)
 
 
         else:
